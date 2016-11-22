@@ -33,6 +33,15 @@ val geotrellis = Seq(
 )
 
 libraryDependencies ++= Seq(
-  "io.pdal" %% "pdal" % "1.4.0-M1",
-  "org.scalatest"  %% "scalatest" % "3.0.0"  % "test"
+  "org.apache.spark" %% "spark-core" % "2.0.2" % "provided",
+  "org.scalatest"    %% "scalatest"  % "3.0.0"  % "test"
 ) ++ geotrellis
+
+test in assembly := {}
+
+assemblyMergeStrategy in assembly := {
+  case "reference.conf" | "application.conf" => MergeStrategy.concat
+  case "META-INF/MANIFEST.MF" | "META-INF\\MANIFEST.MF" => MergeStrategy.discard
+  case "META-INF/ECLIPSEF.RSA" | "META-INF/ECLIPSEF.SF" => MergeStrategy.discard
+  case _ => MergeStrategy.first
+}
