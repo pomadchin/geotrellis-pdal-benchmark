@@ -33,7 +33,7 @@ val geotrellis = Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.apache.spark" %% "spark-core" % "2.0.2" % "provided",
+  "org.apache.spark" %% "spark-core" % "2.0.0" % "provided",
   "org.scalatest"    %% "scalatest"  % "3.0.0"  % "test"
 ) ++ geotrellis
 
