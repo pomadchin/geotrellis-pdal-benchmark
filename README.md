@@ -5,9 +5,7 @@
 ## Build
 
 ### PDAL Build (example in the following Dockerfiles)
- * https://github.com/PDAL/PDAL/blob/master/scripts/docker/Dockerfile (all deps for PDAL)
- * https://github.com/PDAL/PDAL/blob/master/scripts/docker/dependencies/Dockerfile (PDAL build itself)
- * PDAL Branch to install: https://github.com/pomadchin/PDAL/tree/feature/pdal-jni
+ * [bootstrap.sh](./boostrap.sh)
 
 ### PDAL JNI Binaries build
  * README.md in the following directory: https://github.com/pomadchin/PDAL/tree/feature/pdal-jni/java
@@ -17,7 +15,6 @@
  * `./sbt assembly`
  * You can use [this](https://github.com/pomadchin/geotrellis-pdal-benchmark/blob/master/dist/geotrellis-pdal-assembly-0.1.0-SNAPSHOT.jar) assembly jar to run job.
  * As the only argument [com.azavea.PackedPointCount](https://github.com/pomadchin/geotrellis-pdal-benchmark/blob/master/src/main/scala/com/azavea/PackedPointCount.scala) accepts an HDFS path to files.
-
 
 ## Run
 

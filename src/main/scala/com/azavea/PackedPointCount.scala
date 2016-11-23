@@ -13,7 +13,7 @@ object PackedPointCount {
     val input = new Path(args.head)
 
     val conf = new SparkConf()
-      .setMaster("local[*]")
+      .setIfMissing("spark.master", "local[*]")
       .setAppName("PackedPointCount")
       .set("spark.serializer", classOf[KryoSerializer].getName)
       .set("spark.kryo.registrator", classOf[KryoRegistrator].getName)
@@ -22,20 +22,21 @@ object PackedPointCount {
 
     try {
       val source = HadoopPackedPointsRDD(input)
-      val pointsCount = sc.longAccumulator("Points Count")
 
       val start = System.currentTimeMillis
-      source.foreachPartition { _.foreach { case (_, packedPoints) =>
+      val pointsCount = source.mapPartitions { _.map { case (_, packedPoints) =>
+        var acc = 0l
         cfor(0)(_ < packedPoints.length, _ + 1) { i =>
           packedPoints.get(i)
-          pointsCount.add(1)
+          acc += 1
         }
-      } }
+        acc
+      } }.reduce(_ + _)
       val end = System.currentTimeMillis
 
       val time = "%,d".format(end - start)
       println("=================Points Count=================")
-      println(s"pointsCount (in $time ms): ${pointsCount.value}")
+      println(s"pointsCount (in $time ms): ${pointsCount}")
       println("==============================================")
     } finally sc.stop()
   }
