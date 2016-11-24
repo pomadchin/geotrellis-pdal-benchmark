@@ -27,9 +27,9 @@ javaOptions += "-Djava.library.path=/usr/local/lib"
 val gtVersion = "1.0.0-SNAPSHOT"
 
 val geotrellis = Seq(
-  "org.locationtech.geotrellis" %% "geotrellis-spark" % gtVersion,
-  "org.locationtech.geotrellis" %% "geotrellis-s3"    % gtVersion,
-  "org.locationtech.geotrellis" %% "geotrellis-pdal"  % gtVersion
+  "org.locationtech.geotrellis" %% "geotrellis-spark"  % gtVersion,
+  "org.locationtech.geotrellis" %% "geotrellis-s3"     % gtVersion,
+  "org.locationtech.geotrellis" %% "geotrellis-points" % gtVersion
 )
 
 libraryDependencies ++= Seq(
