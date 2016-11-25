@@ -16,8 +16,8 @@ scalacOptions ++= Seq(
 
 resolvers ++= Seq(
   Resolver.bintrayRepo("daunnc", "maven"),
-  "LocationTech GeoTrellis Releases" at "https://repo.locationtech.org/content/repositories/geotrellis-releases",
-  "LocationTech GeoTrellis Snapshots" at "https://repo.locationtech.org/content/repositories/geotrellis-snapshots"
+  "LocationTech GeoTrellis Releases" at "https://repo.locationtech.org/content/repositories/geotrellis-releases"
+  //"LocationTech GeoTrellis Snapshots" at "https://repo.locationtech.org/content/repositories/geotrellis-snapshots"
 )
 
 fork := true
