@@ -1,6 +1,6 @@
 package com.azavea
 
-import geotrellis.spark.io.hadoop.HadoopPackedPointsRDD
+import geotrellis.spark.io.hadoop.HadoopPointCloudRDD
 import geotrellis.spark.io.kryo.KryoRegistrator
 
 import org.apache.spark.serializer.KryoSerializer
@@ -14,20 +14,20 @@ object PackedPointCount {
 
     val conf = new SparkConf()
       .setIfMissing("spark.master", "local[*]")
-      .setAppName("PackedPointCount")
+      .setAppName("PointCloudCount")
       .set("spark.serializer", classOf[KryoSerializer].getName)
       .set("spark.kryo.registrator", classOf[KryoRegistrator].getName)
 
     implicit val sc = new SparkContext(conf)
 
     try {
-      val source = HadoopPackedPointsRDD(input)
+      val source = HadoopPointCloudRDD(input)
 
       val start = System.currentTimeMillis
-      val pointsCount = source.mapPartitions { _.map { case (_, packedPoints) =>
+      val pointsCount = source.mapPartitions { _.map { case (_, pointCloud) =>
         var acc = 0l
-        cfor(0)(_ < packedPoints.length, _ + 1) { i =>
-          packedPoints.get(i)
+        cfor(0)(_ < pointCloud.length, _ + 1) { i =>
+          pointCloud.get(i)
           acc += 1
         }
         acc
