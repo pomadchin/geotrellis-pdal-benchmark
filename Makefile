@@ -1,6 +1,6 @@
-include config-aws.mk			# Vars related to AWS credentials and services used
-include config-emr.mk	    # Vars related to type and size of EMR cluster
-include config-ingest.mk  # Vars related to ingest step and spark parameters
+include config-aws.mk # Vars related to AWS credentials and services used
+include config-emr.mk # Vars related to type and size of EMR cluster
+include config-run.mk # Vars related to ingest step and spark parameters
 
 POINTCLOUD_ASSEMBLY := target/scala-2.11/geotrellis-pdal-assembly-0.1.0-SNAPSHOT.jar
 SCRIPT_RUNNER := s3://elasticmapreduce/libs/script-runner/script-runner.jar
@@ -31,7 +31,7 @@ upload-code: ${POINTCLOUD_ASSEMBLY} scripts/emr/*
 
 create-cluster:
 	aws emr create-cluster --name "${NAME}" ${COLOR_TAG} \
---release-label emr-5.0.0 \
+--release-label emr-5.2.0 \
 --output text \
 --use-default-roles \
 --configurations "file://$(CURDIR)/scripts/configurations.json" \
@@ -49,7 +49,7 @@ run:
 	aws emr add-steps --output text --cluster-id ${CLUSTER_ID} \
 --steps Type=CUSTOM_JAR,Name="PointCloud benchmark",Jar=command-runner.jar,Args=[\
 spark-submit,--master,yarn-cluster,\
---class,demo.LandsatIngestMain,\
+--class,com.azavea.PackedPointCount,\
 --driver-memory,${DRIVER_MEMORY},\
 --driver-cores,${DRIVER_CORES},\
 --executor-memory,${EXECUTOR_MEMORY},\
@@ -74,6 +74,14 @@ wait:
 			*) exit 1;; \
 	esac; \
 	done
+
+terminate-cluster:
+	aws emr terminate-clusters --cluster-ids ${CLUSTER_ID}
+	rm -f cluster-id.txt
+	rm -f last-step-id.txt
+
+clean:
+	./sbt clean -no-colors
 
 proxy:
 	aws emr socks --cluster-id ${CLUSTER_ID} --key-pair-file "${HOME}/${EC2_KEY}.pem"

@@ -44,7 +44,7 @@
         "Properties": {
           "JAVA_HOME": "/usr/lib/jvm/java-1.8.0",
           "GDAL_DATA": "/usr/local/share/gdal",
-          "LD_LIBRARY_PATH": "/usr/lib:/usr/local/lib",
+          "LD_LIBRARY_PATH": "/usr/local/lib",
           "PYSPARK_PYTHON": "python27",
           "PYSPARK_DRIVER_PYTHON": "python27"
         }
@@ -59,7 +59,7 @@
         "Properties": {
           "JAVA_HOME": "/usr/lib/jvm/java-1.8.0",
           "GDAL_DATA": "/usr/local/share/gdal",
-          "LD_LIBRARY_PATH": "/usr/lib:/usr/local/lib",
+          "LD_LIBRARY_PATH": "/usr/local/lib",
           "SPARK_PRINT_LAUNCH_COMMAND": "1",
           "PYSPARK_PYTHON": "python27",
           "PYSPARK_DRIVER_PYTHON": "python27"
@@ -75,7 +75,7 @@
         "Properties": {
           "JAVA_HOME": "/usr/lib/jvm/java-1.8.0",
           "GDAL_DATA": "/usr/local/share/gdal",
-          "LD_LIBRARY_PATH": "/usr/lib:/usr/local/lib",
+          "LD_LIBRARY_PATH": "/usr/local/lib",
           "PYSPARK_PYTHON": "python27",
           "PYSPARK_DRIVER_PYTHON": "python27"
         }
