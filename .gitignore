@@ -35,3 +35,12 @@ README.html
 # Test data files #
 
 data
+
+# EMR #
+
+cluster-id.txt
+last-step-id.txt
+
+scripts/upsert.json
+config-aws.mk
+logs
