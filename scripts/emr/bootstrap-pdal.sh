@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # This scripts bootstraps each node in the the EMR cluster to install PDAL.
 
@@ -70,9 +70,9 @@ make
 sudo make install
 
 # Compile the JNI bindings ourselves.
-cd /home/hadoop/pdal/java
+cd /mnt/pdal/java
 ./sbt native/nativeCompile
-sudo cp /home/hadoop/pdal/java/native/target/native/x86_64-linux/bin/libpdaljni.1.4.so /usr/local/lib/
+sudo cp /mnt/pdal/java/native/target/native/x86_64-linux/bin/libpdaljni.1.4.so /usr/local/lib/
 
 # load demo data
 # hadoop fs -mkdir -p whitestare/test/lidar
