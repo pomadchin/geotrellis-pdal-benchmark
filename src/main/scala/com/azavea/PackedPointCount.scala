@@ -1,5 +1,7 @@
 package com.azavea
 
+import java.io.File
+
 import io.pdal._
 import geotrellis.spark.pointcloud.json._
 import geotrellis.spark.io.hadoop.HadoopPointCloudRDD
@@ -24,6 +26,7 @@ object PackedPointCount {
 
   def main(args: Array[String]): Unit = {
     val input = new Path(args.head)
+    val chunkPath = System.getProperty("user.dir") + "/chunks/"
 
     val conf = new SparkConf()
       .setIfMissing("spark.master", "local[*]")
@@ -150,18 +153,31 @@ object PackedPointCount {
 
     println(s"MIN, MAX = ($min, $max)")*/
 
+    //os.environ['PWD'], "chunk-temp")
+
+
     try {
-      val source = HadoopPointCloudRDD(input)
+
+      val source = HadoopPointCloudRDD(
+        input,
+        geotrellis.spark.io.hadoop.HadoopPointCloudRDD.Options(tmpDir = Some(chunkPath))
+      ).flatMap(_._2)
 
       val start = System.currentTimeMillis
-      val pointsCount = source.mapPartitions { _.map { case (_, pointCloudIter) =>
-        val pointCloud = pointCloudIter.next()
+      val pointsCount = source.mapPartitions { _.map { pointCloud =>
+        //val arr = new Array[Int](pointCloud.length)
         var acc = 0l
         cfor(0)(_ < pointCloud.length, _ + 1) { i =>
           pointCloud.get(i)
+          //val s = System.currentTimeMillis
+          //pointCloud.get(i)
+          //val e = System.currentTimeMillis
+          //val t = "%,d".format(e - s).toInt
+          //arr(i) = t
           acc += 1
         }
         acc
+        //arr
       } }.reduce(_ + _)
       val end = System.currentTimeMillis
 
