@@ -24,17 +24,17 @@ fork := true
 
 javaOptions += "-Djava.library.path=/usr/local/lib"
 
-val gtVersion = "1.0.0-SNAPSHOT"
+val gtVersion = "1.1.0-PC-SNAPSHOT"
 
 val geotrellis = Seq(
-  "org.locationtech.geotrellis" %% "geotrellis-spark"  % gtVersion,
-  "org.locationtech.geotrellis" %% "geotrellis-s3"     % gtVersion,
-  "org.locationtech.geotrellis" %% "geotrellis-points" % gtVersion
+  "org.locationtech.geotrellis" %% "geotrellis-spark"      % gtVersion,
+  "org.locationtech.geotrellis" %% "geotrellis-s3"         % gtVersion,
+  "org.locationtech.geotrellis" %% "geotrellis-pointcloud" % gtVersion
 )
 
 libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-core" % "2.0.0" % "provided",
-  "org.scalatest"    %% "scalatest"  % "3.0.0"  % "test"
+  "org.scalatest"    %% "scalatest"  % "3.0.0" % "test"
 ) ++ geotrellis
 
 test in assembly := {}
