@@ -65,8 +65,8 @@ cd /mnt
 git clone https://github.com/pomadchin/PDAL.git pdal
 cd pdal
 git checkout feature/pdal-jni
-cmake . -DWITH_LAZPERF=ON -DWITH_GEOTIFF=ON -DWITH_LASZIP=ON
-make
+cmake . -DWITH_APPS=ON -DWITH_LAZPERF=ON -DWITH_GEOTIFF=ON -DWITH_LASZIP=ON -DCMAKE_BUILD_TYPE=Release
+make -j4
 sudo make install
 
 # Compile the JNI bindings ourselves.
@@ -78,6 +78,9 @@ sudo cp /mnt/pdal/java/native/target/native/x86_64-linux/bin/libpdaljni.1.4.so /
 # hadoop fs -mkdir -p whitestare/test/lidar
 # hdfs dfs -cp -p s3n://5827c3f4-ab3e-11e6-b689-3c15c2ddc9be/GRM_Lidar/Lidar_201609/Classified_LAS/ whitestare/test/lidar/
 # dfs dfs -ls whitestare/test/lidar/Classified_LAS
+# hadoop fs -mkdir -p whitestare/test/lidar && hdfs dfs -cp -p s3n://5827c3f4-ab3e-11e6-b689-3c15c2ddc9be/GRM_Lidar/Lidar_201609/Classified_LAS/ whitestare/test/lidar/
+# hadoop fs -mkdir -p whitestare/test/lidar1/Classified_LAS && hdfs dfs -cp whitestare/test/lidar/Classified_LAS/Goonyella_14B_20160913_AMG66z55.las  whitestare/test/lidar1/Classified_LAS/
+
 
 # Copy prebuilt JNI bindings from S3.
 # cd /mnt
